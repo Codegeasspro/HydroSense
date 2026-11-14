@@ -5,3 +5,5 @@ __pycache__/
 .DS_Store
 .env
 # Raw test records are handled explicitly; do not ignore experiment data globally.
+models/*.FCBak
+models/*.FCStd1

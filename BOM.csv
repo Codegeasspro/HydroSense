@@ -1,0 +1,10 @@
+Item,Specification,Qty,Unit cost USD,Extended USD,Status
+PETG filament,0.7 kg allocated for prototype,1,17.50,17.50,Budgetary
+SG90 micro servo,5 V nominal plastic gear,1,4.50,4.50,Budgetary
+Ultrasonic sensor,HC-SR04 compatible module,1,4.00,4.00,Assumed interface
+Silicone tube,6 mm OD short length,1,6.00,6.00,Budgetary
+Tube clamp,small stainless clamp,1,2.00,2.00,Budgetary
+Microcontroller and leads,Arduino-compatible controller and jumper leads,1,16.00,16.00,Budgetary
+5 V power supply,2 A regulated USB supply,1,9.00,9.00,Budgetary
+Contingency,prototype replacement allowance,1,20.00,20.00,Budgetary
+TOTAL,,,,$79.00,Under USD 100 incremental-materials cap

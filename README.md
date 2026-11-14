@@ -11,23 +11,24 @@ HydroSense is an experimental 3D-printed water-reservoir monitoring system using
 - Level acquisition over USB serial; calibrated storage-volume computation.
 - Model-based analysis of controlled water loss and discharge.
 - Browser-based Three.js visualization updated from measurements.
-- Additional materials budget ceiling: CAD $100.
+- Additional materials budget ceiling: US$100.
 
 A sensor measuring water level alone cannot distinguish a leak from intentionally released outlet flow without an independent measurement or model of expected discharge. The research protocol will make this distinction explicit.
 
-## Getting started
+## CAD files
 
-Read [`docs/design-basis.md`](docs/design-basis.md) and [`docs/experimental-plan.md`](docs/experimental-plan.md). The first build step is a PETG watertightness test coupon and a parametric CAD model; production hardware is not yet designed.
+Open `models/HydroSense_Integrated_V2.FCStd` in FreeCAD for the assembled design. The editable reservoir feature history is in `models/HydroSense_Reservoir_V2_constrained.FCStd`. Printable meshes are in `exports/`.
+
+See [ENGINEERING_DESIGN.md](ENGINEERING_DESIGN.md) for geometry, engineering checks, snap-fit interfaces, test limits, and the preliminary versus validated distinction. The materials plan is in `BOM.csv` and totals US$79.00.
 
 ## Repository layout
 
-- `cad/source/`: editable FreeCAD files (forthcoming).
-- `cad/printable/`: approved export meshes (forthcoming).
+- `models/`: editable `.FCStd` files.
+- `exports/`: generated printable STL files.
 - `firmware/hydrosense_uno/`: Arduino acquisition firmware (forthcoming).
 - `src/hydrosense/`: Python acquisition, hydraulics and analytics.
 - `hardware/`: circuit, wiring and purchased-parts records.
 - `experiments/`: test protocols, raw measurements and analysis.
-- `tests/`: unit and model verification tests.
 
 ## Engineering model
 
