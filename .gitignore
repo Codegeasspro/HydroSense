@@ -1,0 +1,7 @@
+__pycache__/
+.pytest_cache/
+.venv/
+*.py[cod]
+.DS_Store
+.env
+# Raw test records are handled explicitly; do not ignore experiment data globally.
