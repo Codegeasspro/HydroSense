@@ -65,7 +65,7 @@ A 50 percent derating for servo variability, friction, and continuous-duty avoid
 
 ### Material budget
 
-The incremental-materials budget in `BOM.csv` is US$79.00, including 0.7 kg of PETG and a US$20 contingency. It satisfies the US$100 cap. The PETG allowance covers approximately 0.59 kg calculated from the six CAD solid volumes at 1.27 g/cm³. Prices are planning allowances, not purchase quotes.
+The project constraint is a CAD $100 incremental-materials cap. The dollar values in `BOM.csv` were created as unverified USD planning allowances and therefore cannot demonstrate compliance with the CAD cap. Reprice each item in CAD using an identified Canadian supplier, identify donated or already-owned components separately, and record tax and delivery before approving procurement. The PETG allowance covers approximately 0.59 kg calculated from the six CAD solid volumes at 1.27 g/cm³; that mass estimate remains preliminary until print settings and supports are selected.
 
 ## Validation and required bench tests
 

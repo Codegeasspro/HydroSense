@@ -1,24 +1,65 @@
 # Preliminary experimental plan
 
-## Question
+Revision 0.2, 2026-11-14. Targets are pre-registered design objectives, not measured performance.
 
-What is the smallest controlled additional loss rate detectable by a low-cost ultrasonic reservoir monitoring system at a defined false-positive rate?
+## Research question
+
+What is the minimum detectable abnormal water-loss rate in a low-cost instrumented reservoir under varying hydraulic head, sensor noise, calibration drift, and valve-discharge uncertainty?
+
+HydroSense detects unexplained net water loss. It does not localize a physical leak or establish water quality or potability.
+
+## Hypothesis and decision boundary
+
+The physics-informed residual detector with declared uncertainty bounds will have lower false-positive frequency or lower detection latency than fixed level thresholds and adaptive CUSUM when tested against the same independent ground truth.
+
+The controller has three advisory outputs:
+
+1. `normal`: measurements are consistent with the hydraulic model.
+2. `alert`: a residual exceeds the declared uncertainty threshold.
+3. `indeterminate`: data quality or actuator-state evidence is insufficient for a defensible classification.
+
+No automatic water-control action is permitted during the initial evaluation.
 
 ## Method
 
-1. Establish sensor-to-bottom datum and usable range; record known depths and water volumes.
-2. Measure closed-outlet baseline and drift with timestamped sensor readings.
-3. Run controlled discharge trials; independently measure collected water and elapsed time.
-4. Calibrate Q(h, theta) for the printed pinch valve under selected heads.
-5. Introduce uncommanded loss relative to a known outlet baseline.
-6. Evaluate detection latency, sensitivity, false positive fraction, rate error and repeatability using held-out trials.
+1. Establish the sensor-to-bottom datum and level-to-volume curve using independently measured water additions.
+2. Quantify closed-outlet baseline, repeatability, drift, missing-data behaviour, and sampling latency.
+3. Calibrate normal outlet discharge `Q_out(h, theta)` by collecting and weighing discharged water at selected hydraulic heads and valve positions.
+4. Generate controlled abnormal losses using a separately calibrated loss path. Record collected mass and elapsed time as ground truth.
+5. Run normal-discharge, abnormal-loss, sensor-bias, sensor-drift, spike, missing-data, and valve-model-error trials.
+6. Partition trials into development and held-out evaluation sets before fitting detector settings.
+7. Evaluate identical trials with fixed thresholds, rate-of-change thresholds, CUSUM, mass-balance residual, and uncertainty-aware residual methods.
 
-## Key model
+## Model
 
-For constant-area tank, V = A*h, h = H-d, dV/dt = Qin-Qout-Qleak. The sensor measures total water loss, not the location or mechanism of that loss.
+For constant-area geometry, `V = A*h`, `h = H-d`, and:
 
-## Preliminary performance targets
+`dV/dt = Q_in - Q_out - Q_loss`
 
-Depth MAE <= 5 mm in calibrated range; balance closure within 5%; detector sensitivity >=90% and false-positive trial fraction <=10% for a predeclared rate range; digital twin displayed level update within 2 seconds of accepted data receipt. Targets are not verified performance.
+The one-step predicted storage state is:
 
-Retain raw CSV and metadata including fluid depth, printed revision, actual geometry, tube specifications, valve angle, timestamps and sample rejection reasons.
+`V_predicted(t + Δt) = V_predicted(t) + (Q_in - Q_out) Δt`
+
+The diagnostic residual is:
+
+`r(t) = V_measured(t) - V_predicted(t)`
+
+An alert may be issued only when the magnitude of `r(t)` exceeds a predeclared multiple of the propagated standard uncertainty. The source and magnitude of every uncertainty component must be recorded.
+
+## Primary outcome
+
+Define the minimum detectable loss rate, `Q_loss,min`, as the lowest independently measured abnormal-loss rate that reaches at least 90% sensitivity at a false-positive rate no greater than 5%, within a predeclared observation window. This definition must be applied to held-out trials.
+
+## Secondary outcomes
+
+- Depth mean absolute error and repeatability.
+- Storage-balance closure error.
+- Precision, recall, specificity, F1 score, and false-positive rate.
+- Detection latency.
+- Sensitivity to hydraulic head, sensor bias, drift, missing data, and valve-model error.
+- Number of indeterminate outcomes.
+- Calibration time, recalibration interval, and material cost.
+
+## Data and provenance
+
+Retain raw CSV files and metadata including trial identifier, timestamp, unit conventions, actual tank geometry, printed revision, sensor serial number, sensor calibration state, tube specifications, valve command, independently observed valve state, ground-truth mass collection, test condition, and rejection reason. Never overwrite raw data. Derived data and analysis outputs must cite their source files and software revision.
